@@ -29,6 +29,7 @@ import java.util.Date;
 public class CameraActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
+    boolean image = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,14 @@ public class CameraActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                if (image = true){
+                Intent analysisOverView = new Intent(CameraActivity.this, AnalysisOverview.class);
+                startActivity(analysisOverView);
+                }
+                else {
+                  //show dialog shit here
+                   // dialog.show();
+                }
             }
         });
     }
@@ -60,6 +67,8 @@ public class CameraActivity extends Activity {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(photo);
+            image = true;
+
         }
     }
 } /*  Button button;
