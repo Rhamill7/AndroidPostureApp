@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -30,6 +31,7 @@ public class CameraActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     boolean image = false;
+    private static Bitmap photoImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class CameraActivity extends Activity {
         });
 
         Button analysisButton = (Button) this.findViewById(R.id.button2);
-        photoButton.setOnClickListener(new View.OnClickListener() {
+        analysisButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -66,10 +68,18 @@ public class CameraActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+            setPhoto(photo);
             imageView.setImageBitmap(photo);
             image = true;
 
         }
+    }
+
+    public void setPhoto(Bitmap photo){
+        this.photoImage =  photo;
+    }
+    public static Bitmap getImage(){
+        return photoImage;
     }
 } /*  Button button;
     ImageView imageView;

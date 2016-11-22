@@ -9,5 +9,6 @@ public class AnalysisOverview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis_overview);
+
     }
 }
