@@ -18,6 +18,12 @@
         android:layout_gravity="center_horizontal"
         />
 
+    <TextView
+        android:text="Once you have taken a picture tap to add joint locations!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3" />
+
     <ImageView
         android:layout_width="350dp"
         android:layout_height="300dp"
