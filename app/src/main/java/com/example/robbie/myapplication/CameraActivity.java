@@ -1,8 +1,12 @@
 package com.example.robbie.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
@@ -11,27 +15,25 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 
 public class CameraActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     boolean image = false;
     private static Bitmap photoImage;
+    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,12 @@ public class CameraActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (image = true){
-                Intent analysisOverView = new Intent(CameraActivity.this, AnalysisOverview.class);
-                startActivity(analysisOverView);
+
+                    Intent DrawableActivity = new Intent(CameraActivity.this, DrawableActivity.class);
+                    startActivity(DrawableActivity);
+
+            //    Intent analysisOverView = new Intent(CameraActivity.this, AnalysisOverview.class);
+              //  startActivity(analysisOverView);
                 }
                 else {
                   //show dialog shit here
@@ -65,6 +71,7 @@ public class CameraActivity extends Activity {
         });
     }
 
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -72,8 +79,23 @@ public class CameraActivity extends Activity {
             imageView.setImageBitmap(photo);
             image = true;
 
+
         }
     }
+
+  /*  @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (surfaceHolder.getSurface().isValid()) {
+                Canvas canvas = surfaceHolder.lockCanvas();
+                canvas.drawColor(Color.RED);
+                canvas.drawCircle(event.getX(), event.getY(), 50, paint);
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+        return false;
+    }*/
 
     public void setPhoto(Bitmap photo){
         this.photoImage =  photo;

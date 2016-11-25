@@ -39,7 +39,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".AnalysisOverview" />
-        <activity android:name=".DetailedAnalysis"></activity>
+        <activity android:name=".DetailedAnalysis" />
+        <activity android:name=".DrawableActivity"></activity>
     </application>
 
 </manifest>
