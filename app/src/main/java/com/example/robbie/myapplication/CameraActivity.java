@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -42,6 +43,7 @@ public class CameraActivity extends Activity {
     private ImageView imageView;
     boolean image = false;
     private static Bitmap photoImage;
+    //private final SurfaceHolder surfaceHolder;
   //  private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int RESULT_LOAD_IMG =1;
     Bitmap bitmap;
@@ -126,16 +128,30 @@ public class CameraActivity extends Activity {
                     paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                     paint.setColor(Color.BLUE);
                     // canvas.drawCircle(50, 50, 10, paint);
+                    Log.d("L", String.valueOf(imageView.getLeft()));
+                    Log.d("U", String.valueOf(imageView.getTop()));
+                    Log.d("R", String.valueOf(imageView.getRight()));
+                    Log.d("B", String.valueOf(imageView.getBottom()));
+                    float xWidth= imageView.getWidth();
+                   float yHeight=imageView.getHeight();
+                    DisplayMetrics displaymetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                    int height = displaymetrics.heightPixels;
+                    int width = displaymetrics.widthPixels;
+                    float value1 = xWidth/(float) width;
+                    float value2 = yHeight/(float)height;
+
+
 
 
                     // if (surfaceHolder.getSurface().isValid()) {
-                    //   Canvas canvas = surfaceHolder.lockCanvas();
+                     //  Canvas canvas = surfaceHolder.lockCanvas();
                     //canvas.drawColor(Color.RED);
-                    canvas.drawCircle(50, 50, 50, paint);
+                   // canvas.drawCircle(50, 50, 50, paint);
                     imageView.setImageBitmap(bitmap);
                     Log.d("colour", String.valueOf(event.getX()));
-                    canvas.drawCircle((int) event.getX(),(int)(event.getY()), 10, paint);
-
+                    canvas.drawCircle((int) event.getX()/10,(int) event.getY()/10, 10, paint);
+                    imageView.setImageBitmap(bitmap);
                 }
                 return true;
             }
@@ -178,7 +194,31 @@ public class CameraActivity extends Activity {
                             Toast.LENGTH_LONG).show();
                 }
 
+        class DrawingView extends SurfaceView {
 
+            private final SurfaceHolder surfaceHolder;
+            private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+            public DrawingView(Context context) {
+                super(context);
+                surfaceHolder = getHolder();
+                paint.setColor(Color.RED);
+                paint.setStyle(Paint.Style.FILL);
+            }
+
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (surfaceHolder.getSurface().isValid()) {
+                        Canvas canvas = surfaceHolder.lockCanvas();
+                        canvas.drawColor(Color.BLACK);
+                        canvas.drawCircle(event.getX(), event.getY(), 50, paint);
+                        surfaceHolder.unlockCanvasAndPost(canvas);
+                    }
+                }
+                return false;
+            }
+        }
     }
 
 
