@@ -2,6 +2,8 @@ package com.example.robbie.myapplication;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,22 +27,25 @@ public class DetailedAnalysis extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "ImageClicked",
                         Toast.LENGTH_SHORT).show();
 
-//                final CharSequence[] items = {"Red", "Green", "Blue"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                builder.setTitle("Pick a color");
-                builder.setCancelable(false);
-                //  builder.setPositiveButton(R.string.dialog_action_dismiss, null);
+                // TODO Auto-generated method stub
+                AlertDialog.Builder alert = new AlertDialog.Builder(DetailedAnalysis.this);
+                alert.setTitle("OH NO!");
+                alert.setMessage("You have forward head posture! Click okay to learn how to fix it!");
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
-//                // creating a single choice item menu (radio buttons list)
-//                // -1 indicates that no item should be selected by default
-//                // pass index argument starting from 0 to preselect an item if required
-//                builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int item) {
-//                        Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-                AlertDialog alert = builder.create();
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.exrx.net/Kinesiology/Posture.html"));
+                                startActivity(browserIntent);
+                            }
+                        });
+                alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                       finish();
+                    }
+                });
                 alert.show();
 
             }

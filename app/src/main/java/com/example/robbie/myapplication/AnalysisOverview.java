@@ -20,6 +20,7 @@ public class AnalysisOverview extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentDetailed = new Intent(AnalysisOverview.this,DetailedAnalysis.class);
                 startActivity(intentDetailed);
+                finish();
             }
         });
 
