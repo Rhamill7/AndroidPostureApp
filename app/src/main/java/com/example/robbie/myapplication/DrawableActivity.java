@@ -16,6 +16,9 @@ public class DrawableActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new DrawingView(this));
+
+
+
     }
 
     class DrawingView extends SurfaceView {

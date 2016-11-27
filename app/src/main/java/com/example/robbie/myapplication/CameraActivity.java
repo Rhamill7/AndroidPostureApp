@@ -29,14 +29,24 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+
+import static java.lang.Float.valueOf;
 
 public class CameraActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     boolean image = false;
     private static Bitmap photoImage;
-    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+  //  private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int RESULT_LOAD_IMG =1;
+    Bitmap bitmap;
+    Canvas canvas;
+    Paint paint ;
 
 
     @Override
@@ -44,6 +54,18 @@ public class CameraActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         this.imageView = (ImageView)this.findViewById(R.id.image_view);
+
+
+        //-------------------------------------------------------------
+
+        bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.RED);
+        canvas.drawCircle(50, 50, 10, paint);
+        imageView.setImageBitmap(bitmap);
+
+        //---------------------------------------------------------------
 
         Button photoButton = (Button) this.findViewById(R.id.button);
         photoButton.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +77,7 @@ public class CameraActivity extends Activity {
             }
         });
 
-
+/*
         Button galleryButton = (Button) this.findViewById(R.id.button4);
         galleryButton.setOnClickListener(new View.OnClickListener() {
 
@@ -68,7 +90,7 @@ public class CameraActivity extends Activity {
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMG);//RESULT_LOAD_IMG);
             }
         });
-
+*/
 
 
         Button analysisButton = (Button) this.findViewById(R.id.button2);
@@ -92,14 +114,45 @@ public class CameraActivity extends Activity {
                 }
             }
         });
+
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // textView.setText("Touch coordinates : " +
+                    //       String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
+                    canvas = new Canvas(bitmap);
+                    paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                    paint.setColor(Color.BLUE);
+                    // canvas.drawCircle(50, 50, 10, paint);
+
+
+                    // if (surfaceHolder.getSurface().isValid()) {
+                    //   Canvas canvas = surfaceHolder.lockCanvas();
+                    //canvas.drawColor(Color.RED);
+                    canvas.drawCircle(50, 50, 50, paint);
+                    imageView.setImageBitmap(bitmap);
+                    Log.d("colour", String.valueOf(event.getX()));
+                    canvas.drawCircle((int) event.getX(),(int)(event.getY()), 10, paint);
+
+                }
+                return true;
+            }
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Log.d("bob", "got to here :( ");
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            setPhoto(photo);
-            imageView.setImageBitmap(photo);
+            bitmap = (Bitmap) data.getExtras().get("data");
+            setPhoto(bitmap);
+            imageView.setImageBitmap(bitmap);
+//            canvas = new Canvas(bitmap);
+//            paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//            paint.setColor(Color.RED);
+//            canvas.drawCircle(50, 50, 10, paint);
+//            imageView.setImageBitmap(bitmap);
             image = true;
 
 
@@ -129,17 +182,25 @@ public class CameraActivity extends Activity {
     }
 
 
-
-  /*  @Override
+/*
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (surfaceHolder.getSurface().isValid()) {
-                Canvas canvas = surfaceHolder.lockCanvas();
-                canvas.drawColor(Color.RED);
-                canvas.drawCircle(event.getX(), event.getY(), 50, paint);
-                surfaceHolder.unlockCanvasAndPost(canvas);
-            }
+        if(event.getAction() == MotionEvent.ACTION_DOWN && image == true) {
+            canvas = new Canvas(bitmap);
+            paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setColor(Color.BLUE);
+           // canvas.drawCircle(50, 50, 10, paint);
+
+
+            // if (surfaceHolder.getSurface().isValid()) {
+             //   Canvas canvas = surfaceHolder.lockCanvas();
+                //canvas.drawColor(Color.RED);
+           // canvas.drawCircle(50, 50, 50, paint);
+            canvas.drawCircle(event.getX(), event.getY(), 50, paint);
+            imageView.setImageBitmap(bitmap);
+            //    surfaceHolder.unlockCanvasAndPost(canvas);
+          //  }
         }
         return false;
     }*/
