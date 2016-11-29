@@ -40,7 +40,6 @@
 
         <activity android:name=".AnalysisOverview" />
         <activity android:name=".DetailedAnalysis" />
-        <activity android:name=".DrawableActivity"></activity>
     </application>
 
 </manifest>

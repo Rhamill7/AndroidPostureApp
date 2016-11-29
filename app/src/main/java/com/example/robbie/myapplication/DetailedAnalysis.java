@@ -30,7 +30,8 @@ public class DetailedAnalysis extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 AlertDialog.Builder alert = new AlertDialog.Builder(DetailedAnalysis.this);
                 alert.setTitle("OH NO!");
-                alert.setMessage("You have forward head posture! Click okay to learn how to fix it!");
+                alert.setMessage("You have forward head posture! Click OK to learn how to fix it! " +
+                        "Click CANCEL to go back and take another picture!");
                 alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {

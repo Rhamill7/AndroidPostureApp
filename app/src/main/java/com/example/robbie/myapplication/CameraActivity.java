@@ -64,7 +64,7 @@ public class CameraActivity extends Activity {
         canvas = new Canvas(bitmap);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.RED);
-        canvas.drawCircle(50, 50, 10, paint);
+     //   canvas.drawCircle(50, 50, 10, paint);
         imageView.setImageBitmap(bitmap);
 
         //---------------------------------------------------------------
@@ -102,8 +102,7 @@ public class CameraActivity extends Activity {
             public void onClick(View v) {
                 if (image == true){
 
-                  //  Intent DrawableActivity = new Intent(CameraActivity.this, DrawableActivity.class);
-                  //  startActivity(DrawableActivity);
+
 
                Intent analysisOverView = new Intent(CameraActivity.this, AnalysisOverview.class);
               startActivity(analysisOverView);
@@ -111,8 +110,7 @@ public class CameraActivity extends Activity {
                 else {
                     Toast.makeText(CameraActivity.this, "You haven't picked an Image",
                             Toast.LENGTH_LONG).show();
-                  //show dialog shit here
-                   // dialog.show();
+
                 }
             }
         });
@@ -122,36 +120,36 @@ public class CameraActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // textView.setText("Touch coordinates : " +
-                    //       String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
-                    canvas = new Canvas(bitmap);
-                    paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                    paint.setColor(Color.BLUE);
-                    // canvas.drawCircle(50, 50, 10, paint);
-                    Log.d("L", String.valueOf(imageView.getLeft()));
-                    Log.d("U", String.valueOf(imageView.getTop()));
-                    Log.d("R", String.valueOf(imageView.getRight()));
-                    Log.d("B", String.valueOf(imageView.getBottom()));
-                    float xWidth= imageView.getWidth();
-                   float yHeight=imageView.getHeight();
-                    DisplayMetrics displaymetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-                    int height = displaymetrics.heightPixels;
-                    int width = displaymetrics.widthPixels;
-                    float value1 = xWidth/(float) width;
-                    float value2 = yHeight/(float)height;
+                    if (image == true) {
+                        // textView.setText("Touch coordinates : " +
+                        //       String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
+                        canvas = new Canvas(bitmap);
+                        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                        paint.setColor(Color.RED);
+                        // canvas.drawCircle(50, 50, 10, paint);
+                        Log.d("L", String.valueOf(imageView.getLeft()));
+                        Log.d("U", String.valueOf(imageView.getTop()));
+                        Log.d("R", String.valueOf(imageView.getRight()));
+                        Log.d("B", String.valueOf(imageView.getBottom()));
+                        float xWidth = imageView.getWidth();
+                        float yHeight = imageView.getHeight();
+                        DisplayMetrics displaymetrics = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                        int height = displaymetrics.heightPixels;
+                        int width = displaymetrics.widthPixels;
+                        float value1 = xWidth / (float) width;
+                        float value2 = yHeight / (float) height;
 
 
-
-
-                    // if (surfaceHolder.getSurface().isValid()) {
-                     //  Canvas canvas = surfaceHolder.lockCanvas();
-                    //canvas.drawColor(Color.RED);
-                   // canvas.drawCircle(50, 50, 50, paint);
-                    imageView.setImageBitmap(bitmap);
-                    Log.d("colour", String.valueOf(event.getX()));
-                    canvas.drawCircle((int) event.getX()/10,(int) event.getY()/10, 10, paint);
-                    imageView.setImageBitmap(bitmap);
+                        // if (surfaceHolder.getSurface().isValid()) {
+                        //  Canvas canvas = surfaceHolder.lockCanvas();
+                        //canvas.drawColor(Color.RED);
+                        // canvas.drawCircle(50, 50, 50, paint);
+                        imageView.setImageBitmap(bitmap);
+                        Log.d("colour", String.valueOf(event.getX()));
+                        canvas.drawCircle((int) event.getX() / 10, (int) event.getY() / 10, 10, paint);
+                        imageView.setImageBitmap(bitmap);
+                    }
                 }
                 return true;
             }
@@ -185,7 +183,7 @@ public class CameraActivity extends Activity {
             Log.d("bob", picturePath);
                 cursor.close();
               //  ImageView imageView = (ImageView) findViewById(R.id.imageView);
-            Log.d("bob", "tits");
+
                 imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
 
@@ -209,11 +207,13 @@ public class CameraActivity extends Activity {
             @Override
             public boolean onTouchEvent(MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (surfaceHolder.getSurface().isValid()) {
-                        Canvas canvas = surfaceHolder.lockCanvas();
-                        canvas.drawColor(Color.BLACK);
-                        canvas.drawCircle(event.getX(), event.getY(), 50, paint);
-                        surfaceHolder.unlockCanvasAndPost(canvas);
+                    if (image == true){
+                        if (surfaceHolder.getSurface().isValid()) {
+                            Canvas canvas = surfaceHolder.lockCanvas();
+                            canvas.drawColor(Color.BLACK);
+                            canvas.drawCircle(event.getX(), event.getY(), 50, paint);
+                            surfaceHolder.unlockCanvasAndPost(canvas);
+                        }
                     }
                 }
                 return false;

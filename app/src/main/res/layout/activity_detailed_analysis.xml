@@ -11,9 +11,18 @@
     android:orientation="vertical"
     tools:context="com.example.robbie.myapplication.DetailedAnalysis">
 
+    <TextView
+        android:text="Click to find out what's wrong!"
+        android:textSize="24dp"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/textView2" />
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="481dp"
         android:id="@+id/image_view2"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"
